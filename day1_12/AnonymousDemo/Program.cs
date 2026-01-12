@@ -8,6 +8,7 @@ namespace AnonymousDemo
 {
     public delegate void Print(int val, string str);
     public delegate void Print1(int val);
+    public 
     internal class Program
     {
         public static void PrintHelperMethod(Print1 printDel, int val)
