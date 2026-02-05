@@ -59,7 +59,7 @@ namespace ADO2
             dataReader.Close();
             sqlConnection.Close();
         }
-        public void AddNewStudent(int id,string name, string course, int marks)
+        public void AddNewStudent(int id, string name, string course, int marks)
         {
             string sqlCmd = $"insert into Students values({id},'{name}','{course}',{marks})";
             SqlConnection sqlConnection = new SqlConnection(ConString);
@@ -78,9 +78,22 @@ namespace ADO2
             SqlConnection sqlConnection = new SqlConnection(ConString);
             sqlConnection.Open();
             Console.WriteLine("Connection Opened");
-            SqlCommand sqlCommand = new SqlCommand( sqlCmd, sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand(sqlCmd, sqlConnection);
             sqlConnection.Close();
             Console.WriteLine("Deleting student...");
         }
-        
+        public void UpdateStudent(int id, string name, string course, int marks)
+        {
+            string sqlCmd = $"UPDATE students SET Name = '{name}', Course = '{course}', Marks = {marks} WHERE StudentID = {id}";
+            SqlConnection sqlConnection = new SqlConnection(ConString);
+            sqlConnection.Open();
+            Console.WriteLine("Connection Opened");
+            SqlCommand sqlCommand = new SqlCommand(sqlCmd, sqlConnection);
+            int count = sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            Console.WriteLine("Updating student...");
+            Console.WriteLine($"{count} record(s) updated successfully.");
+        }
+
+    }
 }

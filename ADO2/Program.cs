@@ -32,6 +32,16 @@ namespace ADO2
             Console.Write("Enter id for delete: ");
             int Delid = Convert.ToInt32(Console.ReadLine());
             connectedEnv.DeleteStudent(Delid);
+
+            Console.WriteLine("Enter id for Update: ");
+            int updId = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter name: ");
+            string updName = Console.ReadLine();
+            Console.Write("Enter Course: ");
+            string updCourse = Console.ReadLine();
+            Console.Write("Enter Marks: ");
+            int updMarks = Convert.ToInt32(Console.ReadLine());
+            connectedEnv.UpdateStudent(updId, updName, updCourse, updMarks);
             Console.ReadLine();
         }
     }
