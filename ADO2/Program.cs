@@ -11,7 +11,12 @@ namespace ADO2
         static void Main(string[] args)
         {
             ConnectedEnv connectedEnv = new ConnectedEnv();
+            Console.WriteLine("All Student Details: ");
             connectedEnv.GetAllStudent();
+            Console.WriteLine("\n\n");
+            Console.WriteLine("Enter the id of the student you want to search for:");
+            int id  = Convert.ToInt32(Console.ReadLine());
+            connectedEnv.GetStudentById(id);
             Console.ReadLine();
         }
     }
