@@ -45,8 +45,13 @@ namespace ADO2
 
 
             DisconnectEnvDemo disconnectEnvDemo = new DisconnectEnvDemo();
-            Console.WriteLine("All Student Details: ");
-            disconnectEnvDemo.GetAllStudent();
+            //Console.WriteLine("All Student Details: ");
+            //disconnectEnvDemo.GetAllStudent();
+
+            Console.Write("Enter id for search: ");
+            int SearchId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Students details: ");
+            disconnectEnvDemo.GetStudentById(SearchId);
 
             Console.ReadLine();
         }

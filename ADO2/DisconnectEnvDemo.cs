@@ -26,5 +26,20 @@ namespace ADO2
                 Console.WriteLine($"ID: {StudentId}, Name: {StudentName}, Course: {Course}, Marks: {Marks}");
             }
         }
+        public void GetStudentById(int id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConString);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter($"Select * from Students where StudentId={id}", sqlConnection);
+            DataSet dataSet = new DataSet();
+            sqlDataAdapter.Fill(dataSet, "Students");
+            foreach(DataRow row in dataSet.Tables["students"].Rows)
+            {
+                int StudentId = Convert.ToInt32(row["StudentID"]);
+                string StudentName = row["Name"].ToString();
+                string Course = row["Course"].ToString();
+                int Marks = Convert.ToInt32(row["Marks"]);
+                Console.WriteLine($"ID: {StudentId}, Name: {StudentName}, Course: {Course}, Marks: {Marks}");
+            }
+        }
     }
 }
