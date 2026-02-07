@@ -41,5 +41,33 @@ namespace ADO2
                 Console.WriteLine($"ID: {StudentId}, Name: {StudentName}, Course: {Course}, Marks: {Marks}");
             }
         }
+        public void AddNewStudent()
+        {
+            SqlConnection sqlConnection = new SqlConnection(conString);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("Select * from Students", sqlConnection);
+            DataSet dataSet = new DataSet();
+            sqlDataAdapter.Fill(dataSet, "Students");
+            DataRow row = dataSet.Tables["Students"].NewRow();
+
+            Console.WriteLine("Enter Students Details");
+            Console.Write("Enter StudentId: ");
+            int id = int.Parse(Console.ReadLine());
+            row[0] = id;
+            Console.Write("Enter StudentName: ");
+            string Name = Console.ReadLine();
+            row[1] = Name;
+            Console.Write("Enter StudentCourse: ");
+            string course = Console.ReadLine();
+            row[2] = course;
+            Console.Write("Enter StudentMarks: ");
+            int marks = int.Parse(Console.ReadLine());
+            row[3] = marks;
+
+            dataSet.Tables["Students"].Rows.Add(row);
+            SqlCommandBuilder sqlCommandBuilder = new SqlCommandBuilder(sqlDataAdapter);
+            sqlDataAdapter.Update(dataSet, "Students");
+
+            Console.WriteLine("Students Register");
+        }
     }
 }

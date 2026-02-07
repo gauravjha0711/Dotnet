@@ -48,10 +48,13 @@ namespace ADO2
             //Console.WriteLine("All Student Details: ");
             //disconnectEnvDemo.GetAllStudent();
 
-            Console.Write("Enter id for search: ");
-            int SearchId = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Students details: ");
-            disconnectEnvDemo.GetStudentById(SearchId);
+            //Console.Write("Enter id for search: ");
+            //int SearchId = Convert.ToInt32(Console.ReadLine());
+            //Console.WriteLine("Students details: ");
+            //disconnectEnvDemo.GetStudentById(SearchId);
+
+
+            disconnectEnvDemo.AddNewStudent();
 
             Console.ReadLine();
         }
