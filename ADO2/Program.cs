@@ -54,7 +54,14 @@ namespace ADO2
             //disconnectEnvDemo.GetStudentById(SearchId);
 
 
-            disconnectEnvDemo.AddNewStudent();
+            //disconnectEnvDemo.AddNewStudent();
+
+            //disconnectEnvDemo.UpdateStudentById();
+
+
+            disconnectEnvDemo.DeleteStudent();
+
+
 
             Console.ReadLine();
         }
