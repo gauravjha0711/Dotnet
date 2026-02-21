@@ -1,4 +1,4 @@
-namespace FirstWebPage
+namespace WebApplication1
 {
     public class Program
     {
@@ -8,6 +8,7 @@ namespace FirstWebPage
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.Run();
