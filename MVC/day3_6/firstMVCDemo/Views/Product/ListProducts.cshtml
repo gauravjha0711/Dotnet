@@ -1,0 +1,20 @@
+﻿@{
+	ViewBag.Title = "ListProduct";
+}
+<h2>ListProduct</h2>
+<table border="1" class="table table-dark">
+	<tr>
+		<td>ProductCode</td>
+		<td>ProductName</td>
+		<td>Fees</td>
+	</tr>
+
+	@foreach (var item in ViewBag.Products)
+	{
+		<tr>
+			<td>@item.ProductCode</td>
+			<td>@item.ProductName</td>
+			<td>@item.Fees</td>
+		</tr>
+	}
+</table>
