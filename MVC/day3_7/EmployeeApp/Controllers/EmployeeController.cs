@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using EmployeeApp.Models;
+using EmployeeApp.Repositries;
+
 
 namespace EmployeeApp.Controllers
 {
@@ -8,9 +11,16 @@ namespace EmployeeApp.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {
+            EmployeeRepository.Create(employee);
+            return View("Thanks", employee);
         }
     }
 }
