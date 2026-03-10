@@ -25,12 +25,37 @@ namespace CodeFirstDemo.EmployeeRepositories
             }
         }
 
-        public Task<Employee> GetEmployeeById(int? id)
+        public async Task<Employee> GetEmployeeById(int? id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Employee employee = await _employeeContext.Employees.FindAsync(id);
+                if(employee == null)
+                {
+                    return null;
+                }
+                return employee;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
-        public Task Add(Employee employee)
+        public async Task Add(Employee employee)
+        {
+            _employeeContext.Employees.Add(employee);
+            try
+            {
+                _employeeContext.SaveChanges();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public Task Update(int id, Employee employee)
         {
             throw new NotImplementedException();
         }
@@ -39,9 +64,6 @@ namespace CodeFirstDemo.EmployeeRepositories
         {
             throw new NotImplementedException();
         }
-        public Task Update(int id, Employee employee)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

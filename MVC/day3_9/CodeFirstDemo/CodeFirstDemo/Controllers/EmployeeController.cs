@@ -2,7 +2,7 @@
 using CodeFirstDemo.EmployeeRepositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using CodeFirstDemo.Models;
 namespace CodeFirstDemo.Controllers
 {
     public class EmployeeController : Controller
@@ -32,5 +32,30 @@ namespace CodeFirstDemo.Controllers
         {
             return View(await _employeeRepository.GetAllEmployee());
         }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            Employee employee = await _employeeRepository.GetEmployeeById(id);
+            return View(employee);
+        }
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("EmpId,EmpName,Address,Salary,Email")] Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                _employeeRepository.Add(employee);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(employee);
+        }
+        
     }
 }
