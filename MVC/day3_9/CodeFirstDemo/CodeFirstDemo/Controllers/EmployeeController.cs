@@ -93,5 +93,32 @@ namespace CodeFirstDemo.Controllers
             }
             return View(employee);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employee = await _employeeRepository.GetEmployeeById(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return View(employee);
+        }
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (id == null)
+            {
+                return Problem("Entity set 'EmployeeContext.Employees'  is null.");
+
+            }
+            await _employeeRepository.Delete(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -76,10 +76,21 @@ namespace CodeFirstDemo.EmployeeRepositories
             }
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-        
+            try
+            {
+                Employee employee = await _employeeContext.Employees.FindAsync(id);
+                if(employee != null)
+                {
+                    _employeeContext.Employees.Remove(employee);
+                    _employeeContext.SaveChanges();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }        
     }
 }
