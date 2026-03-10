@@ -1,0 +1,40 @@
+using CodeFirstDemo.Context;
+using CodeFirstDemo.EmployeeRepositories;
+using CodeFirstDemo.Models;
+using Microsoft.EntityFrameworkCore;
+namespace CodeFirstDemo
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            builder.Services.AddDbContext<EmployeeContext>(options=>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeContext")));
+            builder.Services.AddControllersWithViews();
+
+            builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.MapStaticAssets();
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}")
+                .WithStaticAssets();
+
+            app.Run();
+        }
+    }
+}
