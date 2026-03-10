@@ -55,9 +55,25 @@ namespace CodeFirstDemo.EmployeeRepositories
             }
         }
 
-        public Task Update(int id, Employee employee)
+        public async Task Update(int id, Employee employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Employee Emp = await _employeeContext.Employees.FindAsync(id);
+                if (Emp != null)
+                {
+                    Emp.EmpName = employee.EmpName;
+                    Emp.Address = employee.Address;
+                    Emp.Salary = employee.Salary;
+                    Emp.Email = employee.Email;
+
+                    _employeeContext.SaveChanges();
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public Task Delete(int id)

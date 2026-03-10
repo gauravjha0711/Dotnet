@@ -1,0 +1,61 @@
+﻿@model CodeFirstDemo.Models.Employee
+
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<h2></h2>Edit Employee</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.EmpId)
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.EmpName, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.TextBoxFor(Model => Model.EmpName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.EmpName, " ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.TextBoxFor(Model => Model.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Address, " ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.TextBoxFor(Model => Model.Salary, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Salary, " ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Email, " ", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br/>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 m-2">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                @Html.ActionLink("Back To List", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

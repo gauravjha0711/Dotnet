@@ -21,7 +21,7 @@ namespace CodeFirstDemo.Controllers
         //}
 
 
- 
+
         private IEmployeeRepository _employeeRepository;
         public EmployeeController(IEmployeeRepository _employeeRepository)
         {
@@ -56,6 +56,42 @@ namespace CodeFirstDemo.Controllers
             }
             return View(employee);
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var employee = await _employeeRepository.GetEmployeeById(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return View(employee);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("EmpId,EmpName,Address,Salary,Email")] Employee employee)
+        {
+            if (id != employee.EmpId)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _employeeRepository.Update(id, employee);
+                }
+                catch
+                {
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(employee);
+        }
     }
 }
