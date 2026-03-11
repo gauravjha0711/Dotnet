@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Data;
+using StudentManagementSystem.Repositories.Interfaces;
+using StudentManagementSystem.Repositories.Implementations;
+
 namespace StudentManagementSystem
 {
     public class Program
@@ -8,28 +11,36 @@ namespace StudentManagementSystem
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Database Connection
             builder.Services.AddDbContext<StudentDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("StudentContext")));
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("StudentContext")
+                ));
+
+            // Dependency Injection
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // HTTP Request Pipeline
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

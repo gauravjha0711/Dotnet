@@ -1,21 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using StudentManagementSystem.Data;
+using StudentManagementSystem.Models;
+using StudentManagementSystem.Repositories.Interfaces;
 
-namespace StudentManagementSystem.Repositories.Interfaces
+namespace StudentManagementSystem.Repositories.Implementations
 {
-    public interface IGenericRepository<T> where T : class
+    public class UnitOfWork : IUnitOfWork
     {
-        IEnumerable<T> GetAll();
+        private readonly StudentDbContext _context;
 
-        T GetById(int id);
+        public IGenericRepository<Student> Students { get; private set; }
 
-        void Insert(T entity);
+        public IGenericRepository<Department> Departments { get; private set; }
 
-        void Update(T entity);
+        public IGenericRepository<Course> Courses { get; private set; }
 
-        void Delete(int id);
+        public UnitOfWork(StudentDbContext context)
+        {
+            _context = context;
 
-        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+            Students = new GenericRepository<Student>(_context);
+            Departments = new GenericRepository<Department>(_context);
+            Courses = new GenericRepository<Course>(_context);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
     }
 }
