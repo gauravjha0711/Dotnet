@@ -1,0 +1,40 @@
+﻿@model StudentManagementSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<h2>Student Details</h2>
+
+<div class="card">
+    <div class="card-body">
+
+        <p><strong>Name:</strong> @Model.Name</p>
+
+        <p><strong>Email:</strong> @Model.Email</p>
+
+        <p><strong>Age:</strong> @Model.Age</p>
+
+        <p><strong>Gender:</strong> @Model.Gender</p>
+
+        <p><strong>Admission Date:</strong> @Model.AdmissionDate.ToShortDateString()</p>
+
+        <p>
+            <strong>Department:</strong>
+            <span class="badge bg-primary">
+                @Model.Department?.DepartmentName
+            </span>
+        </p>
+
+        <p>
+            <strong>Course:</strong>
+            <span class="badge bg-success">
+                @Model.Course?.CourseName
+            </span>
+        </p>
+
+        <a asp-action="Edit" asp-route-id="@Model.StudentId" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+    </div>
+</div>

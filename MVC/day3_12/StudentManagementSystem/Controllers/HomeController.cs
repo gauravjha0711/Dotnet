@@ -1,25 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
-using StudentManagementSystem.Models;
-using System.Diagnostics;
+using StudentManagementSystem.Repositories.Interfaces;
 
 namespace StudentManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
+
+        public HomeController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public IActionResult Index()
         {
-            return View();
-        }
+            ViewBag.TotalStudents = _unitOfWork.Students.GetAll().Count();
+            ViewBag.TotalDepartments = _unitOfWork.Departments.GetAll().Count();
+            ViewBag.TotalCourses = _unitOfWork.Courses.GetAll().Count();
 
-        public IActionResult Privacy()
-        {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

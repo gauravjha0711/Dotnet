@@ -1,0 +1,56 @@
+﻿@model StudentManagementSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Add Student";
+}
+
+<h2>Add Student</h2>
+
+<form asp-action="Create" method="post">
+
+    <div class="form-group mb-3">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Gender"></label>
+        <select asp-for="Gender" class="form-control">
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="AdmissionDate"></label>
+        <input asp-for="AdmissionDate" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Department</label>
+        <select asp-for="DepartmentId" class="form-control"
+                asp-items="@(new SelectList(ViewBag.Departments, "DepartmentId", "DepartmentName"))">
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Course</label>
+        <select asp-for="CourseId" class="form-control"
+                asp-items="@(new SelectList(ViewBag.Courses, "CourseId", "CourseName"))">
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+
+</form>
