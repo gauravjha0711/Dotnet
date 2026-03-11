@@ -4,22 +4,51 @@
     ViewData["Title"] = "Students";
 }
 
-<h2 class="mb-3">Student List</h2>
+<h2 class="mb-4">Students List</h2>
 
-<a asp-action="Create" class="btn btn-primary mb-3">Add New Student</a>
+<!-- SEARCH + FILTER -->
+<form method="get" class="row mb-4">
 
-@if (!Model.Any())
-{
-    <div class="alert alert-warning">
-        No students available.
+    <div class="col-md-4">
+        <input type="text"
+               name="searchName"
+               class="form-control"
+               placeholder="Search Student Name..." />
     </div>
-}
+
+    <div class="col-md-3">
+        <select name="departmentId"
+                class="form-control"
+                asp-items="@(new SelectList(ViewBag.Departments, "DepartmentId", "DepartmentName"))">
+            <option value="">All Departments</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="courseId"
+                class="form-control"
+                asp-items="@(new SelectList(ViewBag.Courses, "CourseId", "CourseName"))">
+            <option value="">All Courses</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">
+            Search
+        </button>
+    </div>
+
+</form>
+
+<a asp-action="Create" class="btn btn-success mb-3">
+    Add Student
+</a>
 
 <table class="table table-striped table-bordered">
+
     <thead class="table-dark">
         <tr>
-            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
-            <th>Email</th>
+            <th>Name</th>
             <th>Age</th>
             <th>Department</th>
             <th>Course</th>
@@ -29,33 +58,53 @@
     </thead>
 
     <tbody>
-        @foreach (var student in Model)
+
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@student.Name</td>
-                <td>@student.Email</td>
-                <td>@student.Age</td>
+
+                <td>@item.Name</td>
+                <td>@item.Age</td>
 
                 <td>
                     <span class="badge bg-primary">
-                        @student.Department?.DepartmentName
+                        @item.Department?.DepartmentName
                     </span>
                 </td>
 
                 <td>
                     <span class="badge bg-success">
-                        @student.Course?.CourseName
+                        @item.Course?.CourseName
                     </span>
                 </td>
 
-                <td>@student.AdmissionDate.ToShortDateString()</td>
+                <td>@item.AdmissionDate.ToShortDateString()</td>
 
                 <td>
-                    <a asp-action="Details" asp-route-id="@student.StudentId" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@student.StudentId" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@student.StudentId" class="btn btn-danger btn-sm">Delete</a>
+
+                    <a asp-action="Details"
+                           asp-route-id="@item.StudentId"
+                           class="btn btn-info btn-sm">
+                        Details
+                    </a>
+
+                    <a asp-action="Edit"
+                           asp-route-id="@item.StudentId"
+                           class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a asp-action="Delete"
+                           asp-route-id="@item.StudentId"
+                           class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+
                 </td>
+
             </tr>
         }
+
     </tbody>
+
 </table>

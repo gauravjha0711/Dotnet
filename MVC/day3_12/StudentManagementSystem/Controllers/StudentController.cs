@@ -14,10 +14,28 @@ namespace StudentManagementSystem.Controllers
         }
 
         // 1. List All Students
-
-        public IActionResult Index()
+        public IActionResult Index(string searchName, int? departmentId, int? courseId)
         {
             var students = _unitOfWork.Students.GetAll();
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                students = students.Where(s => s.Name.Contains(searchName));
+            }
+
+            if (departmentId.HasValue)
+            {
+                students = students.Where(s => s.DepartmentId == departmentId);
+            }
+
+            if (courseId.HasValue)
+            {
+                students = students.Where(s => s.CourseId == courseId);
+            }
+
+            ViewBag.Departments = _unitOfWork.Departments.GetAll();
+            ViewBag.Courses = _unitOfWork.Courses.GetAll();
+
             return View(students);
         }
 
@@ -44,6 +62,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Student student)
         {
             if (ModelState.IsValid)
@@ -53,7 +72,8 @@ namespace StudentManagementSystem.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-
+            ViewBag.Departments = _unitOfWork.Departments.GetAll();
+            ViewBag.Courses = _unitOfWork.Courses.GetAll();
             return View(student);
         }
 
@@ -73,6 +93,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Student student)
         {
             if (ModelState.IsValid)
@@ -80,8 +101,11 @@ namespace StudentManagementSystem.Controllers
                 _unitOfWork.Students.Update(student);
                 _unitOfWork.Save();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
+
+            ViewBag.Departments = _unitOfWork.Departments.GetAll();
+            ViewBag.Courses = _unitOfWork.Courses.GetAll();
 
             return View(student);
         }

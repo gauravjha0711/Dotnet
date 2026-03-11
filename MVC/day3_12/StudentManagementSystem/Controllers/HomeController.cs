@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 using StudentManagementSystem.Repositories.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace StudentManagementSystem.Controllers
 {
@@ -14,9 +16,27 @@ namespace StudentManagementSystem.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.TotalStudents = _unitOfWork.Students.GetAll().Count();
-            ViewBag.TotalDepartments = _unitOfWork.Departments.GetAll().Count();
-            ViewBag.TotalCourses = _unitOfWork.Courses.GetAll().Count();
+            var students = _unitOfWork.Students.GetAll().ToList();
+            var departments = _unitOfWork.Departments.GetAll().ToList();
+            var courses = _unitOfWork.Courses.GetAll().ToList();
+
+            ViewBag.TotalStudents = students.Count;
+            ViewBag.TotalDepartments = departments.Count;
+            ViewBag.TotalCourses = courses.Count;
+
+            var deptData = students
+                .GroupBy(s => s.Department.DepartmentName)
+                .Select(g => new
+                {
+                    Department = g.Key,
+                    Count = g.Count()
+                }).ToList();
+
+            ViewBag.DepartmentNames =
+                JsonSerializer.Serialize(deptData.Select(x => x.Department));
+
+            ViewBag.DepartmentCounts =
+                JsonSerializer.Serialize(deptData.Select(x => x.Count));
 
             return View();
         }

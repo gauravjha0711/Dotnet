@@ -2,42 +2,90 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="container mt-4">
+<h2 class="mb-4">Dashboard</h2>
 
-    <h2 class="mb-4">Dashboard</h2>
+<div class="row">
 
-    <div class="row">
+    <div class="col-md-4">
 
-        <!-- Total Students -->
-        <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3 shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Total Students</h5>
-                    <h2>@ViewBag.TotalStudents</h2>
-                </div>
+        <div class="card text-white bg-primary mb-3 shadow">
+
+            <div class="card-body text-center">
+
+                <h5>Total Students</h5>
+
+                <h2>@ViewBag.TotalStudents</h2>
+
             </div>
+
         </div>
 
-        <!-- Total Departments -->
-        <div class="col-md-4">
-            <div class="card text-white bg-success mb-3 shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Total Departments</h5>
-                    <h2>@ViewBag.TotalDepartments</h2>
-                </div>
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card text-white bg-success mb-3 shadow">
+
+            <div class="card-body text-center">
+
+                <h5>Total Departments</h5>
+
+                <h2>@ViewBag.TotalDepartments</h2>
+
             </div>
+
         </div>
 
-        <!-- Total Courses -->
-        <div class="col-md-4">
-            <div class="card text-white bg-warning mb-3 shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Total Courses</h5>
-                    <h2>@ViewBag.TotalCourses</h2>
-                </div>
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card text-white bg-warning mb-3 shadow">
+
+            <div class="card-body text-center">
+
+                <h5>Total Courses</h5>
+
+                <h2>@ViewBag.TotalCourses</h2>
+
             </div>
+
         </div>
 
     </div>
 
 </div>
+
+<hr />
+
+<h3 class="mt-4">Students Per Department</h3>
+
+<canvas id="deptChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    var ctx = document.getElementById('deptChart').getContext('2d');
+
+    var deptChart = new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+    labels: @Html.Raw(ViewBag.DepartmentNames),
+
+    datasets: [{
+
+    label: 'Students',
+
+    data: @Html.Raw(ViewBag.DepartmentCounts)
+
+    }]
+
+    }
+
+    });
+
+</script>
