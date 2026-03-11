@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+
 namespace StudentManagementSystem.Models
 {
     public class Department
     {
         public int DepartmentId { get; set; }
-
-        public string DepartmentName { get; set; } = string.Empty;
-
+        public string DepartmentName { get; set; }
+        public string Location { get; set; }
         public ICollection<Student> Students { get; set; }
     }
-
 }

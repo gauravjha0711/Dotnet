@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentManagementSystem.Models.Context;
 
@@ -10,9 +11,11 @@ using StudentManagementSystem.Models.Context;
 namespace StudentManagementSystem.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    partial class StudentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260311104227_update3")]
+    partial class update3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,16 +112,14 @@ namespace StudentManagementSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StudentId");
 
@@ -134,8 +135,7 @@ namespace StudentManagementSystem.Migrations
                             DepartmentId = 1,
                             Email = "alice@example.com",
                             Gender = "Female",
-                            Name = "Alice Johnson",
-                            Password = "PassValue"
+                            Name = "Alice Johnson"
                         },
                         new
                         {
@@ -144,8 +144,7 @@ namespace StudentManagementSystem.Migrations
                             DepartmentId = 2,
                             Email = "bob@example.com",
                             Gender = "Male",
-                            Name = "Bob Smith",
-                            Password = "PassValue"
+                            Name = "Bob Smith"
                         });
                 });
 
