@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.Caching.Memory;
+
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Login_Auth.Controllers
 {
@@ -58,6 +61,18 @@ namespace Login_Auth.Controllers
         {
             string username = HttpContext.Session.GetString("UserName");
             return Content($"Session Value: {username}");
+        }
+
+        private readonly IMemoryCache _cache;
+        public StateManagementController(IMemoryCache cache)
+        {
+            _cache = cache;
+        }
+        public IActionResult CacheDemo()
+        {
+            _cache.Set("User", "Gaurav Jha");
+            string user = _cache.Get<string>("User");
+            return Content(user);
         }
     }
 }
