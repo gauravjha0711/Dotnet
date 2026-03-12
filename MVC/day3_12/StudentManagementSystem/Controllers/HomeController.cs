@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using StudentManagementSystem.Repositories.Interfaces;
-using System.Text.Json.Serialization;
 
 namespace StudentManagementSystem.Controllers
 {

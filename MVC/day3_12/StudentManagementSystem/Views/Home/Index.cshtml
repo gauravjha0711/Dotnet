@@ -2,51 +2,132 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h2 class="mb-4">Dashboard</h2>
+<style>
+
+    .dashboard-card {
+        border-radius: 12px;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+    .card-icon {
+        font-size: 40px;
+    }
+
+</style>
+
+<h2 class="mb-4">📊 Dashboard</h2>
 
 <div class="row">
 
+    <!-- Students Card -->
+
     <div class="col-md-4">
 
-        <div class="card text-white bg-primary mb-3 shadow">
+        <a asp-controller="Student" asp-action="Index" style="text-decoration:none">
 
-            <div class="card-body text-center">
+            <div class="card text-white bg-primary mb-3 shadow dashboard-card">
 
-                <h5>Total Students</h5>
+                <div class="card-body text-center">
 
-                <h2>@ViewBag.TotalStudents</h2>
+                    <div class="card-icon mb-2">
+                        👨‍🎓
+                    </div>
+
+                    <h5>Total Students</h5>
+
+                    <h2>@ViewBag.TotalStudents</h2>
+
+                    <small>Click to view students</small>
+
+                </div>
 
             </div>
 
-        </div>
+        </a>
 
     </div>
 
+    <!-- Departments Card -->
+
     <div class="col-md-4">
 
-        <div class="card text-white bg-success mb-3 shadow">
+        <a asp-controller="Department" asp-action="Index" style="text-decoration:none">
 
-            <div class="card-body text-center">
+            <div class="card text-white bg-success mb-3 shadow dashboard-card">
 
-                <h5>Total Departments</h5>
+                <div class="card-body text-center">
 
-                <h2>@ViewBag.TotalDepartments</h2>
+                    <div class="card-icon mb-2">
+                        🏢
+                    </div>
+
+                    <h5>Total Departments</h5>
+
+                    <h2>@ViewBag.TotalDepartments</h2>
+
+                    <small>Click to view departments</small>
+
+                </div>
 
             </div>
 
-        </div>
+        </a>
 
     </div>
 
+    <!-- Courses Card -->
+
     <div class="col-md-4">
 
-        <div class="card text-white bg-warning mb-3 shadow">
+        <a asp-controller="Course" asp-action="Index" style="text-decoration:none">
 
-            <div class="card-body text-center">
+            <div class="card text-white bg-warning mb-3 shadow dashboard-card">
 
-                <h5>Total Courses</h5>
+                <div class="card-body text-center">
 
-                <h2>@ViewBag.TotalCourses</h2>
+                    <div class="card-icon mb-2">
+                        📚
+                    </div>
+
+                    <h5>Total Courses</h5>
+
+                    <h2>@ViewBag.TotalCourses</h2>
+
+                    <small>Click to view courses</small>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-dark text-white">
+
+                <h5 class="mb-0">Students Per Department</h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="deptChart"></canvas>
 
             </div>
 
@@ -55,12 +136,6 @@
     </div>
 
 </div>
-
-<hr />
-
-<h3 class="mt-4">Students Per Department</h3>
-
-<canvas id="deptChart"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -80,10 +155,28 @@
 
     label: 'Students',
 
-    data: @Html.Raw(ViewBag.DepartmentCounts)
+    data: @Html.Raw(ViewBag.DepartmentCounts),
+
+    backgroundColor: [
+    '#0d6efd',
+    '#198754',
+    '#ffc107',
+    '#dc3545',
+    '#6f42c1',
+    '#20c997'
+    ]
 
     }]
 
+    },
+
+    options:{
+    responsive:true,
+    plugins:{
+    legend:{
+    display:false
+    }
+    }
     }
 
     });
