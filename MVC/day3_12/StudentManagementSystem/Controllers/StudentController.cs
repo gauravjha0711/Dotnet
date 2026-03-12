@@ -170,6 +170,9 @@ namespace StudentManagementSystem.Controllers
             var students = _unitOfWork.Students
                 .Find(s => s.Age > 25);
 
+            ViewBag.Departments = _unitOfWork.Departments.GetAll();
+            ViewBag.Courses = _unitOfWork.Courses.GetAll();
+
             return View("Index", students);
         }
 
@@ -178,6 +181,9 @@ namespace StudentManagementSystem.Controllers
         {
             var students = _unitOfWork.Students
                 .Find(s => s.AdmissionDate > DateTime.Now.AddYears(-1));
+
+            ViewBag.Departments = _unitOfWork.Departments.GetAll();
+            ViewBag.Courses = _unitOfWork.Courses.GetAll();
 
             return View("Index", students);
         }
@@ -206,6 +212,9 @@ namespace StudentManagementSystem.Controllers
                 .GetAll()
                 .OrderBy(s => s.Name);
 
+            ViewBag.Departments = _unitOfWork.Departments.GetAll();
+            ViewBag.Courses = _unitOfWork.Courses.GetAll();
+
             return View("Index", students);
         }
 
@@ -217,6 +226,9 @@ namespace StudentManagementSystem.Controllers
                 .GetAll()
                 .OrderByDescending(s => s.AdmissionDate)
                 .Take(5);
+
+            ViewBag.Departments = _unitOfWork.Departments.GetAll();
+            ViewBag.Courses = _unitOfWork.Courses.GetAll();
 
             return View("Index", students);
         }
