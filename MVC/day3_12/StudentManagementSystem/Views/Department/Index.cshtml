@@ -13,22 +13,19 @@
 <table class="table table-striped table-bordered">
 
     <thead class="table-dark">
-
         <tr>
             <th>Department Name</th>
             <th>Location</th>
             <th>Actions</th>
         </tr>
-
     </thead>
 
     <tbody>
 
-        @if (Model.Any())
+        @if (Model != null && Model.Any())
         {
             @foreach (var dept in Model)
             {
-
                 <tr>
 
                     <td>@dept.DepartmentName</td>
@@ -61,10 +58,15 @@
                             Students
                         </a>
 
+                        <a asp-action="CoursesByDepartment"
+                               asp-route-id="@dept.DepartmentId"
+                               class="btn btn-primary btn-sm">
+                            Courses
+                        </a>
+
                     </td>
 
                 </tr>
-
             }
         }
         else

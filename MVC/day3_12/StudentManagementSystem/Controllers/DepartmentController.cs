@@ -147,5 +147,24 @@ namespace StudentManagementSystem.Controllers
 
             return View(students);
         }
+
+
+        // Show Courses By Department
+        public IActionResult CoursesByDepartment(int id)
+        {
+            var department = _unitOfWork.Departments.GetById(id);
+
+            if (department == null)
+                return NotFound();
+
+            var courses = _unitOfWork.Courses
+                .GetAll()
+                .Where(c => c.DepartmentId == id)
+                .ToList();
+
+            ViewBag.DepartmentName = department.DepartmentName;
+
+            return View(courses);
+        }
     }
 }
