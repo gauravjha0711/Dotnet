@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Repositories.Interfaces;
 
@@ -80,6 +81,8 @@ namespace StudentManagementSystem.Controllers
 
             return View(department);
         }
+
+
 
         // Delete Department
 

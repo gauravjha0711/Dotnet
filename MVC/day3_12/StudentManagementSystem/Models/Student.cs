@@ -31,8 +31,8 @@ namespace StudentManagementSystem.Models
         public int CourseId { get; set; }
 
         // Navigation Properties
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
 
-        public Course Course { get; set; }
+        public Course? Course { get; set; }
     }
 }

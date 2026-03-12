@@ -18,8 +18,8 @@ namespace StudentManagementSystem.Models
         public int DepartmentId { get; set; }
 
         // Navigation Properties
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
 
-        public ICollection<Student> Students { get; set; }
+        public ICollection<Student>? Students { get; set; }
     }
 }
