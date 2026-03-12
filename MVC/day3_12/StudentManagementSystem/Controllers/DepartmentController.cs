@@ -104,5 +104,48 @@ namespace StudentManagementSystem.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        // Show Students By Department
+        //public IActionResult StudentsByDepartment(int id)
+        //{
+        //    var department = _unitOfWork.Departments.GetById(id);
+
+        //    if (department == null)
+        //        return NotFound();
+
+        //    var students = _unitOfWork.Students
+        //        .Find(s => s.DepartmentId == id)
+        //        .ToList();
+
+        //    ViewBag.DepartmentName = department.DepartmentName;
+
+        //    return View(students);
+        //}
+        public IActionResult StudentsByDepartment(int id)
+        {
+            var department = _unitOfWork.Departments.GetById(id);
+
+            if (department == null)
+                return NotFound();
+
+            var students = _unitOfWork.Students
+                .GetAll()
+                .Where(s => s.DepartmentId == id)
+                .ToList();
+
+            // Fetch Courses
+            var courses = _unitOfWork.Courses.GetAll();
+
+            // Map course to each student
+            foreach (var student in students)
+            {
+                student.Course = courses
+                    .FirstOrDefault(c => c.CourseId == student.CourseId);
+            }
+
+            ViewBag.DepartmentName = department.DepartmentName;
+
+            return View(students);
+        }
     }
 }
