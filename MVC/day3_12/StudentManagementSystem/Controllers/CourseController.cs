@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystem.Models;
 using StudentManagementSystem.Repositories.Interfaces;
-
+using Microsoft.EntityFrameworkCore;
 namespace StudentManagementSystem.Controllers
 {
     public class CourseController : Controller
@@ -14,10 +14,17 @@ namespace StudentManagementSystem.Controllers
         }
 
         // List All Courses
-
         public IActionResult Index()
         {
-            var courses = _unitOfWork.Courses.GetAll();
+            var courses = _unitOfWork.Courses.GetAll().ToList();
+            var departments = _unitOfWork.Departments.GetAll().ToList();
+
+            // Map Department to Course
+            foreach (var course in courses)
+            {
+                course.Department = departments
+                    .FirstOrDefault(d => d.DepartmentId == course.DepartmentId);
+            }
             return View(courses);
         }
 
@@ -104,6 +111,33 @@ namespace StudentManagementSystem.Controllers
             _unitOfWork.Save();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // Filter Students by Course
+        public IActionResult StudentsByCourse(int id)
+        {
+            var course = _unitOfWork.Courses.GetById(id);
+
+            if (course == null)
+                return NotFound();
+
+            var students = _unitOfWork.Students
+                .GetAll()
+                .Where(s => s.CourseId == id)
+                .ToList();
+
+            var departments = _unitOfWork.Departments.GetAll().ToList();
+
+            // Map Department to each Student
+            foreach (var student in students)
+            {
+                student.Department = departments
+                    .FirstOrDefault(d => d.DepartmentId == student.DepartmentId);
+            }
+
+            ViewBag.CourseName = course.CourseName;
+
+            return View(students);
         }
     }
 }
