@@ -59,7 +59,7 @@ namespace IdentityDemo.Controllers
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login");
-            return View(model);
+            return View(model); 
         }
 
         [HttpPost]
