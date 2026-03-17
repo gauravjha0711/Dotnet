@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Cards Alignment Example</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center; /* Center cards horizontally */
+            gap: 20px; /* Space between cards */
+            padding: 20px;
+        }
+
+        .card {
+            width: 200px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 2px 2px 10px gray;
+        }
+
+            .card button {
+                margin-top: 10px;
+                padding: 8px 12px;
+                background-color: blue;
+                color: white;
+                border: none;
+                border-radius: 5px;
+            }
+    </style>
+
+</head>
+<body>
+
+    <h2 style="text-align:center;">Product Cards</h2>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>Product 1</h3>
+            <p>Price: ₹500</p>
+            <button>Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Product 2</h3>
+            <p>Price: ₹800</p>
+            <button>Buy Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Product 3</h3>
+            <p>Price: ₹1200</p>
+            <button>Buy Now</button>
+        </div>
+    </div>
+
+</body>
+</html>

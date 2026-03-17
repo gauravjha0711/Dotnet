@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Transition Example</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            /* Smooth effect */
+            transition: background-color 0.5s ease;
+        }
+
+            button:hover {
+                background-color: red;
+            }
+    </style>
+
+</head>
+<body>
+
+    <h2>Transition Example</h2>
+
+    <button>Hover Me</button>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .card {
+            width: 200px;
+            padding: 20px;
+            margin: 50px auto;
+            background: lightgray;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 5px 5px 15px gray;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        Hover over this card
+    </div>
+
+</body>
+</html>

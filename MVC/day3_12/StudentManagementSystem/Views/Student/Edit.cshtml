@@ -1,0 +1,59 @@
+﻿@model StudentManagementSystem.Models.Student
+
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<h2>Edit Student</h2>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="StudentId" />
+
+    <div class="form-group mb-3">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Gender"></label>
+        <input asp-for="Gender" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="AdmissionDate"></label>
+        <input asp-for="AdmissionDate" class="form-control" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="DepartmentId">Department</label>
+        <select asp-for="DepartmentId"
+                class="form-control"
+                asp-items="@(new SelectList(ViewBag.Departments, "DepartmentId", "DepartmentName"))">
+            <option value="">-- Select Department --</option>
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="CourseId">Course</label>
+        <select asp-for="CourseId"
+                class="form-control"
+                asp-items="@(new SelectList(ViewBag.Courses, "CourseId", "CourseName"))">
+            <option value="">-- Select Course --</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+</form>

@@ -1,0 +1,13 @@
+﻿<h2>Select OTP Method</h2>
+
+<form method="post" asp-action="SendOTP">
+    <button name="method" value="email">Email OTP</button>
+    <br><br>
+    <button name="method" value="sms">SMS OTP</button>
+</form>
+
+<br>
+
+<a asp-action="SetupAuthenticator">
+    <button>Use Authenticator App</button>
+</a>

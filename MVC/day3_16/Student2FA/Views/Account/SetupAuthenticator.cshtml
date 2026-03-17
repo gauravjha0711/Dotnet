@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "Setup Authenticator";
+}
+
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .auth-container {
+        max-width: 420px;
+        margin: 60px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .auth-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #2d3e50;
+
+    }
+
+    .auth-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .qr-box {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        display: inline-block;
+        background: #fafafa;
+        margin-bottom: 15px;
+    }
+
+        .qr-box img {
+            width: 180px;
+            height: 180px;
+        }
+
+    .manual-key {
+        font-size: 13px;
+        color: #555;
+        background: #f1f1f1;
+        padding: 8px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        word-break: break-all;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        text-align: center;
+        letter-spacing: 3px;
+    }
+
+    button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="auth-container">
+
+    <div class="auth-title">
+        Setup Authenticator
+    </div>
+
+    <div class="auth-subtitle">
+        Scan QR code using Microsoft or Google Authenticator
+    </div>
+
+    <div class="qr-box">
+        <img src="data:image/png;base64,@ViewBag.QrCodeImage" />
+    </div>
+
+    <div class="manual-key">
+        Manual Key: <b>@ViewBag.ManualKey</b>
+    </div>
+
+    <form method="post" asp-action="VerifyAuthenticator">
+        <input type="text" name="code" placeholder="Enter 6-digit code" />
+        <button type="submit">Verify & Login</button>
+    </form>
+
+    <div class="error">
+        @ViewBag.Error
+    </div>
+
+</div>
+
+
+

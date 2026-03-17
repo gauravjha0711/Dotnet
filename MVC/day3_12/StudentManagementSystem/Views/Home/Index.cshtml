@@ -1,0 +1,242 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<style>
+
+    .dashboard-header {
+        background: linear-gradient(135deg,#0d6efd,#6610f2);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        border: none;
+        border-radius: 15px;
+        color: white;
+        padding: 25px;
+        transition: 0.3s;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+    .stat-icon {
+        font-size: 45px;
+        opacity: 0.9;
+    }
+
+    .students-card {
+        background: linear-gradient(135deg,#0d6efd,#3d8bfd);
+    }
+
+    .department-card {
+        background: linear-gradient(135deg,#198754,#43c59e);
+    }
+
+    .course-card {
+        background: linear-gradient(135deg,#ffc107,#ffcd39);
+        color: black;
+    }
+
+    .chart-card {
+        border: none;
+        border-radius: 15px;
+    }
+
+</style>
+
+
+<!-- Welcome Header -->
+
+<div class="dashboard-header">
+
+    <h2>🎓 Student Management Dashboard</h2>
+
+    <p class="mb-0">
+        Manage students, departments and courses efficiently.
+    </p>
+
+</div>
+
+
+<div class="row g-4">
+
+    <!-- Students -->
+
+    <div class="col-md-4">
+
+        <a asp-controller="Student" asp-action="Index" style="text-decoration:none">
+
+            <div class="stat-card students-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <h6>Total Students</h6>
+
+                        <h1>@ViewBag.TotalStudents</h1>
+
+                        <small>View all students</small>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        👨‍🎓
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- Departments -->
+
+    <div class="col-md-4">
+
+        <a asp-controller="Department" asp-action="Index" style="text-decoration:none">
+
+            <div class="stat-card department-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <h6>Total Departments</h6>
+
+                        <h1>@ViewBag.TotalDepartments</h1>
+
+                        <small>View departments</small>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        🏢
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- Courses -->
+
+    <div class="col-md-4">
+
+        <a asp-controller="Course" asp-action="Index" style="text-decoration:none">
+
+            <div class="stat-card course-card">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <h6>Total Courses</h6>
+
+                        <h1>@ViewBag.TotalCourses</h1>
+
+                        <small>View courses</small>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<br />
+
+
+<!-- Chart Section -->
+
+<div class="card chart-card shadow">
+
+    <div class="card-header bg-dark text-white">
+
+        <h5 class="mb-0">📊 Students Per Department</h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <canvas id="deptChart"></canvas>
+
+    </div>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    var ctx = document.getElementById('deptChart').getContext('2d');
+
+    var deptChart = new Chart(ctx, {
+
+    type:'bar',
+
+    data:{
+
+    labels:@Html.Raw(ViewBag.DepartmentNames),
+
+    datasets:[{
+
+    label:'Students',
+
+    data:@Html.Raw(ViewBag.DepartmentCounts),
+
+    backgroundColor:[
+    '#0d6efd',
+    '#6610f2',
+    '#198754',
+    '#ffc107',
+    '#dc3545',
+    '#20c997'
+    ]
+
+    }]
+
+    },
+
+    options:{
+    responsive:true,
+    plugins:{
+    legend:{
+    display:false
+    }
+    },
+    scales:{
+    y:{
+    beginAtZero:true
+    }
+    }
+    }
+
+    });
+
+</script>

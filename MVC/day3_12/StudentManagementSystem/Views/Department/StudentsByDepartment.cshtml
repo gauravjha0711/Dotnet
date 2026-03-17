@@ -1,0 +1,62 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Students By Department";
+}
+
+<h2 class="mb-4">
+    Students of @ViewBag.DepartmentName Department
+</h2>
+
+<a asp-action="Index" class="btn btn-secondary mb-3">
+    Back to Departments
+</a>
+
+<table class="table table-striped table-bordered">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Course</th>
+            <th>Admission Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var student in Model)
+            {
+                <tr>
+
+                    <td>@student.Name</td>
+
+                    <td>@student.Age</td>
+
+                    <td>
+                        <span class="badge bg-success">
+                            @(student.Course != null ? student.Course.CourseName : "No Course")
+                        </span>
+                    </td>
+
+                    <td>
+                        @student.AdmissionDate.ToShortDateString()
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center text-danger">
+                    No Students Found
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

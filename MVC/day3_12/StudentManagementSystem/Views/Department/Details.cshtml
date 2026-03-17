@@ -1,0 +1,33 @@
+﻿@model StudentManagementSystem.Models.Department
+
+@{
+    ViewData["Title"] = "Department Details";
+}
+
+<h2>Department Details</h2>
+
+<div class="card shadow p-4">
+
+    <div class="mb-3">
+        <strong>Department Name:</strong>
+        <span class="badge bg-primary">
+            @Model.DepartmentName
+        </span>
+    </div>
+
+    <div class="mb-3">
+        <strong>Location:</strong>
+        @Model.Location
+    </div>
+
+</div>
+
+<br />
+
+<a asp-action="Edit" asp-route-id="@Model.DepartmentId" class="btn btn-warning">
+    Edit
+</a>
+
+<a asp-action="Index" class="btn btn-secondary">
+    Back to List
+</a>
